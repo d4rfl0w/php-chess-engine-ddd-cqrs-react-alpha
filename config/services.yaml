@@ -1,0 +1,39 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
+    App\Game\UI\Controller\:
+        resource: '../src/Game/UI/Controller'
+        tags: [ 'controller.service_arguments' ]
+
+    # Dodajemy definicje handlerów komend i query
+    App\Game\Application\Handler\CreateGameHandler:
+        tags: ['messenger.message_handler']
+
+    App\Game\Application\Handler\GetGameStateHandler:
+        tags: ['messenger.message_handler']
+
+    App\Game\Application\Handler\MakeMoveHandler:
+        tags: ['messenger.message_handler']
+
+    # Rejestracja busa komend i query
+    command_bus:
+        class: Symfony\Component\Messenger\MessageBus
+        arguments: [{ command: [App\Game\Application\Handler\CreateGameHandler, App\Game\Application\Handler\MakeMoveHandler] }]
+
+    query_bus:
+        class: Symfony\Component\Messenger\MessageBus
+        arguments: [{ query: [App\Game\Application\Handler\GetGameStateHandler] }]

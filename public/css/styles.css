@@ -1,0 +1,5 @@
+/* public/css/styles.css */
+table { border-collapse: collapse; }
+td { width: 80px; height: 80px; text-align: center; vertical-align: middle; border: 1px solid black; }
+.white { background-color: white; }
+.black { background-color: grey; }

@@ -1,0 +1,21 @@
+# config/routes.yaml
+controllers:
+    resource: "../src/Game/UI/Controller/"
+    type: attribute
+
+#api_create_game:
+#    path: /api/game/create
+#    controller: App\Game\Infrastructure\Controller\GameController::createGame
+#    methods: POST
+#
+#api_get_game_state:
+#    path: /api/game/{id}/state
+#    controller: App\Game\Infrastructure\Controller\GameController::getGameState
+#    methods: GET
+#
+#api_make_move:
+#    path: /api/game/{id}/move
+#    controller: App\Game\Infrastructure\Controller\GameController::makeMove
+#    methods: POST
+
+
