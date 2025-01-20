@@ -11,6 +11,10 @@ Silnik szachowy napisany w PHP z frontendem w React, z obsługą Domain-Driven D
 - Obsługa podstawowych zasad gry w szachy
 - Zapisywanie i odtwarzanie partii
 
+## Zdjęcie
+
+![Screenshot](screen.png)
+
 ## Technologie
 - PHP
 - React.js
