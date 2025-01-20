@@ -18,6 +18,7 @@ const ChessBoard = () => {
             const fromNotation = `${String.fromCharCode(65 + selectedPiece.col)}${8 - selectedPiece.row}`;
             const toNotation = `${String.fromCharCode(65 + col)}${8 - row}`;
             setMoveLog([...moveLog, `${fromNotation} -> ${toNotation}`]); // Update the move log
+            setBoard(newBoard);
             setSelectedPiece(null);
             // makeMove(selectedPiece, { row, col }); // progress
             // fetchBoardState();
