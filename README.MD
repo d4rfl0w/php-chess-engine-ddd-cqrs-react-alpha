@@ -1,59 +1,59 @@
 # PHP Chess Engine with DDD, CQRS, and React (Alpha version)
 
-## Opis
-Silnik szachowy napisany w PHP z frontendem w React, z obsługą Domain-Driven Design (DDD) oraz Command Query Responsibility Segregation (CQRS). Aplikacja jest w fazie alpha.
+## Description
+A chess engine written in PHP with a React frontend, implementing Domain-Driven Design (DDD) and Command Query Responsibility Segregation (CQRS). The application is currently in the alpha stage.
 
-## Funkcje
-- Implementacja silnika szachowego w PHP
-- Interfejs frontendowy do gry w szachy w React
-- Zastosowanie wzorców Domain-Driven Design (DDD)
-- Zastosowanie wzorców Command Query Responsibility Segregation (CQRS)
-- Obsługa podstawowych zasad gry w szachy
-- Zapisywanie i odtwarzanie partii
+## Features
+- Chess engine implementation in PHP  
+- React-based frontend chess interface  
+- Domain-Driven Design (DDD) architecture  
+- Command Query Responsibility Segregation (CQRS) patterns  
+- Support for basic chess rules  
+- Game saving and replay functionality
 
-## Zdjęcie
+## Screenshot
 
 ![Screenshot](screen.png)
 
-## Technologie
-- PHP
-- React.js
-- Symfony (dla części backendowej)
-- Doctrine ORM (dla DDD)
-- PHPUnit (do testów jednostkowych)
-- Cypress (do testów end-to-end)
+## Technologies
+- PHP  
+- React.js  
+- Symfony (backend)  
+- Doctrine ORM (for DDD)  
+- PHPUnit (unit testing)  
+- Cypress (end-to-end testing)
 
-## Struktura Katalogów
+## Directory Structure
 
-src/
-├── Game/
-│   ├── Application/
-│   │   ├── Command/
-│   │   ├── Handler/
-│   │   ├── Query/
-│   │   ├── Response/
-│   │   └── Service/
-│   │
-│   ├── Domain/
-│   │   ├── Entity/
-│   │   ├── Repository/
-│   │   └── ValueObject/
-│   │
-│   ├── UI/
-│   │   ├── Controller/
-│   │   └── DTO/
-│   │
-│   └── Infrastructure/
-│       ├── Controller/
-│       ├── Persistence/
-│       ├── Service/
-│       └── Specification/
-│
-├── Frontend/
-│   ├── components/
-│   ├── services/
-│   └── pages/
-│
-tests/
-config/
-docs/
+src/<br>
+├── Game/<br>
+│   ├── Application/<br>
+│   │   ├── Command/<br>
+│   │   ├── Handler/<br>
+│   │   ├── Query/<br>
+│   │   ├── Response/<br>
+│   │   └── Service/<br>
+│   │<br>
+│   ├── Domain/<br>
+│   │   ├── Entity/<br>
+│   │   ├── Repository/<br>
+│   │   └── ValueObject/<br>
+│   │<br>
+│   ├── UI/<br>
+│   │   ├── Controller/<br>
+│   │   └── DTO/<br>
+│   │<br>
+│   └── Infrastructure/<br>
+│       ├── Controller/<br>
+│       ├── Persistence/<br>
+│       ├── Service/<br>
+│       └── Specification/<br>
+│<br>
+├── Frontend/<br>
+│   ├── components/<br>
+│   ├── services/<br>
+│   └── pages/<br>
+│<br>
+tests/<br>
+config/<br>
+docs/<br>
