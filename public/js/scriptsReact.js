@@ -19,7 +19,7 @@ const ChessBoard = () => {
             for (let x = 0; x < board[y].length; x++) {
                 const canvas = cells[y * 8 + x];
                 const ctx = canvas.getContext('2d');
-                ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
 
                 const piece = board[y][x];
                 if (piece) {
@@ -119,7 +119,6 @@ const ChessBoard = () => {
 };
 
 const initialBoard = [
-    // Twoje początkowe ustawienie szachownicy
 ];
 
 export default ChessBoard;

@@ -1,6 +1,5 @@
 <?php
 
-// src/Game/Application/Command/MakeMoveCommand.php
 namespace App\Game\Application\Command;
 
 class MakeMoveCommand

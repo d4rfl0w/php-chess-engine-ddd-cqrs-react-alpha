@@ -2,76 +2,78 @@
 
 namespace App\Game\UI\Controller;
 
-use App\Game\Application\Response\BoardStateResponse;
 use App\Game\Application\Command\MakeMoveCommand;
 use App\Game\Application\Query\GetGameStateQuery;
+use App\Game\Application\Response\BoardStateResponse;
+use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\HandledStamp;
+use Symfony\Component\Routing\Annotation\Route;
 
 class GameController extends AbstractController
 {
-    private MessageBusInterface $commandBus;
-    private MessageBusInterface $queryBus;
-
-    public function __construct(MessageBusInterface $commandBus, MessageBusInterface $queryBus)
-    {
-        $this->commandBus = $commandBus;
-        $this->queryBus = $queryBus;
+    public function __construct(
+        private MessageBusInterface $commandBus,
+        private MessageBusInterface $queryBus
+    ) {
     }
 
-    #[Route('/', name: 'home')]
-    public function index(): Response
-    {
-        return $this->render('base.html.twig');
-    }
-
-    #[Route('/api/games/{gameId}/board', name: 'get_board_state', methods: ['GET'])]
+    #[Route('/api/games/{gameId}/board', name: 'get_board', methods: ['GET'])]
     public function getBoardState(string $gameId): JsonResponse
     {
-        $query = new GetGameStateQuery($gameId);
-
         /** @var BoardStateResponse $boardState */
-        $boardState = $this->dispatchQuery($query);
+        $boardState = $this->dispatchQuery(new GetGameStateQuery($gameId));
 
         return $this->json([
             'gameId' => $boardState->getGameId(),
             'board' => $boardState->getBoard(),
             'turn' => $boardState->getTurn(),
             'status' => $boardState->getStatus(),
-        ], Response::HTTP_OK);
+        ]);
     }
 
     #[Route('/api/games/{gameId}/board', name: 'make_move', methods: ['POST'])]
-    public function makeMove(Request $request, string $gameId): Response
+    public function makeMove(Request $request, string $gameId): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
-        $command = new MakeMoveCommand($gameId, $data['from'], $data['to']);
 
-        $this->dispatchCommand($command);
+        if (empty($data['from']) || empty($data['to'])) {
+            return $this->json([
+                'status' => 'error',
+                'message' => 'Fields "from" and "to" are required.'
+            ], Response::HTTP_BAD_REQUEST);
+        }
 
-        return $this->json(['status' => 'success']);
+        try {
+            $command = new MakeMoveCommand($gameId, $data['from'], $data['to']);
+            $this->dispatchCommand($command);
+        } catch (\Throwable $e) {
+            return $this->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        return $this->json(['status' => 'success'], Response::HTTP_OK);
     }
-
 
     private function dispatchQuery(GetGameStateQuery $query): BoardStateResponse
     {
         $envelope = $this->queryBus->dispatch($query);
 
-        // Extract the result using HandledStamp
+        /** @var HandledStamp|null $handledStamp */
         $handledStamp = $envelope->last(HandledStamp::class);
 
-        if (!$handledStamp) {
-            throw new \RuntimeException('Query was not handled.');
+        if (null === $handledStamp) {
+            throw new RuntimeException('Query was not handled.');
         }
 
-        return $handledStamp->getResult(); // Return the actual result
+        return $handledStamp->getResult();
     }
-
 
     private function dispatchCommand(MakeMoveCommand $command): void
     {

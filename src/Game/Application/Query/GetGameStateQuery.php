@@ -1,6 +1,5 @@
 <?php
 
-// src/Game/Application/Query/GetGameStateQuery.php
 namespace App\Game\Application\Query;
 
 class GetGameStateQuery

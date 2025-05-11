@@ -1,60 +1,67 @@
-# PHP Chess Engine with DDD, CQRS, and React (Alpha)
+# PHP Chess Engine with DDD, CQRS, and React (Alpha version)
 
-## Opis
-Silnik szachowy napisany w PHP z frontendem w React, z obsługą Domain-Driven Design (DDD) oraz Command Query Responsibility Segregation (CQRS). Aplikacja jest w fazie alpha.
+## Description
+A chess engine written in PHP with a React frontend, implementing Domain-Driven Design (DDD) and Command Query Responsibility Segregation (CQRS). The application is currently in the alpha stage.
 
-## Funkcje
-- Implementacja silnika szachowego w PHP
-- Interfejs frontendowy do gry w szachy w React
-- Zastosowanie wzorców Domain-Driven Design (DDD)
-- Zastosowanie wzorców Command Query Responsibility Segregation (CQRS)
-- Obsługa podstawowych zasad gry w szachy
-- Zapisywanie i odtwarzanie partii
+## Features
+- Chess engine implementation in PHP  
+- React-based frontend chess interface  
+- Domain-Driven Design (DDD) architecture  
+- Command Query Responsibility Segregation (CQRS) patterns  
+- Support for basic chess rules  
+- Game saving and replay functionality
 
-## Technologie
-- PHP
-- React.js
-- Symfony (dla części backendowej)
-- Doctrine ORM (dla DDD)
-- PHPUnit (do testów jednostkowych)
+## Running the Application
 
-## Jak uruchomić
+To start the application, use Docker:
+`docker-compose up`
 
-### Krok 1: Sklonuj repozytorium
-```sh
-git clone https://github.com/twoje-repo/php-chess-engine-ddd-cqrs-react-alpha.git
-cd php-chess-engine-ddd-cqrs-react-alpha
-```
+The application will start and the frontend will be available at:
+http://localhost:3000
 
-### Krok 2: Zainstaluj zależności PHP
-```sh
-composer install
-```
+## Screenshot
 
-### Krok 3: Zainstaluj zależności JavaScript
-```sh
-npm install
-```
+![Screenshot](screen.png)
 
-### Krok 4: Uruchom MySQL za pomocą Docker Compose
-```sh
-docker-compose up -d
-```
+## Technologies
+- PHP  
+- React.js  
+- Symfony (backend)  
+- Doctrine ORM (for DDD)  
+- PHPUnit (unit testing)  
+- Cypress (end-to-end testing)
 
-### Krok 5: Uruchom aplikację Symfony
-```sh
-symfony serve
-```
+## Directory Structure
 
-## Struktura katalogów:
-- config/
-- src/
-  - Application/
-  - Domain/
-  - Infrastructure/
-  - UI/
-- tests/
-- templates/
-
-## Licencja:
-MIT License
+src/<br>
+├── Game/<br>
+│   ├── Application/<br>
+│   │   ├── Command/<br>
+│   │   ├── Handler/<br>
+│   │   ├── Query/<br>
+│   │   ├── Response/<br>
+│   │   └── Service/<br>
+│   │<br>
+│   ├── Domain/<br>
+│   │   ├── Entity/<br>
+│   │   ├── Repository/<br>
+│   │   └── ValueObject/<br>
+│   │<br>
+│   ├── UI/<br>
+│   │   ├── Controller/<br>
+│   │   └── DTO/<br>
+│   │<br>
+│   └── Infrastructure/<br>
+│       ├── Controller/<br>
+│       ├── Persistence/<br>
+│       ├── Service/<br>
+│       └── Specification/<br>
+│<br>
+├── Frontend/<br>
+│   ├── components/<br>
+│   ├── services/<br>
+│   └── pages/<br>
+│<br>
+tests/<br>
+config/<br>
+docs/<br>

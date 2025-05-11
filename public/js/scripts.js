@@ -1,4 +1,3 @@
-// public/js/scripts.js
 document.addEventListener('DOMContentLoaded', function () {
 
     const pieces = {
@@ -8,25 +7,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let count = 0;
 
-    // Przechowywanie referencji do nasłuchiwaczy zdarzeń
     const eventListeners = [];
 
-    // Funkcja do dodawania nasłuchiwacza z przechowywaniem referencji
     function addEventListenerWithTracking(element, event, handler) {
         element.addEventListener(event, handler);
         eventListeners.push({ element, event, handler });
     }
 
-    // Funkcja do usuwania nasłuchiwaczy
     function removeEventListeners() {
         eventListeners.forEach(listener => {
             listener.element.removeEventListener(listener.event, listener.handler);
         });
-        // Opróżnianie tablicy po usunięciu nasłuchiwaczy
         eventListeners.length = 0;
     }
 
-    // Funkcja do wyświetlania aktywnych nasłuchiwaczy
     function showActiveEventListeners() {
         console.log('Active Event Listeners:');
         eventListeners.forEach(listener => {
@@ -34,17 +28,14 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Przykładowa funkcja nasłuchiwacza zdarzeń
     function handleClick(event) {
         console.log(`Clicked on cell at ${event.currentTarget.cellIndex}, ${event.currentTarget.parentElement.rowIndex}`);
     }
 
-    // Dodanie nasłuchiwaczy do wszystkich elementów td
     // document.querySelectorAll('td').forEach(function (cell) {
     //     addEventListenerWithTracking(cell, 'click', handleClick);
     // });
 
-    // Wyświetlenie aktywnych nasłuchiwaczy po dodaniu
     // showActiveEventListeners();
 
     document.querySelectorAll('canvas').forEach(function (canvas) {

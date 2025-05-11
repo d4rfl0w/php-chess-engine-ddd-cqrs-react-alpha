@@ -1,29 +1,25 @@
 <?php
-// src/Game/Application/Handler/MakeMoveHandler.php
 namespace App\Game\Application\Handler;
 
 use App\Game\Application\Command\MakeMoveCommand;
 use App\Game\Domain\Repository\GameRepository;
+use App\Game\Domain\Exception\GameNotFoundException;
 
 class MakeMoveHandler
 {
-    private $gameRepository;
-
-    public function __construct(GameRepository $gameRepository)
+    public function __construct(private GameRepository $gameRepository)
     {
-        $this->gameRepository = $gameRepository;
     }
 
-    public function __invoke(MakeMoveCommand $command)
+    public function __invoke(MakeMoveCommand $command): void
     {
         $game = $this->gameRepository->find($command->getGameId());
-        if (!$game) {
-            throw new \Exception('Game not found');
+
+        if (null === $game) {
+            throw new GameNotFoundException(sprintf('Game %s not found', $command->getGameId()));
         }
 
-        // Dodaj logikę obsługującą ruch szachowy
         $game->makeMove($command->getMove());
-
         $this->gameRepository->save($game);
     }
 }
